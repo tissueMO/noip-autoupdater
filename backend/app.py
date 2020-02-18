@@ -8,12 +8,9 @@ from fake_useragent import UserAgent
 # Flask アプリケーション
 app = Flask(__name__)
 
-# Chromeのパスを通す
-os.path.insert(0, os.path.join(os.getcwd(), "./chromedriver-81.0.4044.20"))
-
 
 @app.route("/selenium_demo", methods=["GET"])
-def selenium_demo(request):
+def selenium_demo():
     # このリクエストで使用するユーザーエージェントをランダムに決定
     user_agent = UserAgent().random
     print(user_agent)
@@ -50,7 +47,7 @@ def selenium_demo(request):
 
 
 @app.route("/noip_auto_update", methods=["GET"])
-def noip_auto_update(request):
+def noip_auto_update():
     request_json = request.get_json()
     if request_json and "message" in request_json:
         print(request_json["message"])

@@ -52,7 +52,7 @@ gcloud コマンドが使えることを前提とします。
 
 #### Cloud Run へのデプロイ
 
-`$ gcloud beta run deploy --image gcr.io/[PROJECT-ID]/noip-autoupdate --project [PROJECT-ID]`
+`$ gcloud beta run deploy noip-autoupdater --image gcr.io/[PROJECT-ID]/noip-autoupdater --project [PROJECT-ID]`
 
 
 #### 課金対策
