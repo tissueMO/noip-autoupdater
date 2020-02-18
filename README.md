@@ -47,12 +47,12 @@ gcloud コマンドが使えることを前提とします。
 
 #### Dockerイメージのビルド～GCRへのイメージPush
 
-`$ gcloud builds submit --tag gcr.io/[PROJECT-ID]/noip-autoupdater` --project [PROJECT-iD]
+`$ gcloud builds submit --tag gcr.io/[PROJECT-ID]/noip-autoupdater --project [PROJECT-ID]`
 
 
 #### Cloud Run へのデプロイ
 
-`$ gcloud beta run deploy --image gcr.io/[PROJECT-ID]/noip-autoupdate` --project [PROJECT-iD]
+`$ gcloud beta run deploy --image gcr.io/[PROJECT-ID]/noip-autoupdate --project [PROJECT-ID]`
 
 
 #### 課金対策
@@ -62,7 +62,8 @@ Cloud Run へのデプロイが完了し、正常動作を確認したら、GCR�
 
 ## References
 
-https://cloud.google.com/run/docs/quickstarts/build-and-deploy
+- https://cloud.google.com/run/docs/quickstarts/build-and-deploy
+- https://github.com/ryfeus/gcf-packs
 
 
 ## License
