@@ -28,12 +28,11 @@ def selenium_demo():
     # chrome_options.add_argument("--single-process")
     chrome_options.add_argument("--ignore-certificate-errors")
     chrome_options.add_argument(f"user-agent={user_agent}")
+    chrome_options.binary_location = "/app/chromedriver-81.0.4044.20"
 
     # Chromeドライバー起動
-    driver = webdriver.Chrome(
-        executable_path="/app/chromedriver-81.0.4044.20",
-        options=chrome_options
-    )
+    print(f"binary_location exists: {os.path.exists('/app/chromedriver-81.0.4044.20')}")
+    driver = webdriver.Chrome(options=chrome_options)
 
     # Wikipediaのランダムな記事を取得
     driver.get("https://en.wikipedia.org/wiki/Special:Random")
