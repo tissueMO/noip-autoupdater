@@ -20,7 +20,8 @@ RUN apt-get update && apt-get install -y \
 # Chromeをインストール
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 RUN dpkg -i google-chrome-stable_current_amd64.deb \
- && apt-get -fy install \
+ && apt-get install -y libappindicator7 \
+ && apt-get install -fy \
  && apt-get clean \
  && apt-get autoremove \
  && rm -rf /var/lib/apt/lists/*
