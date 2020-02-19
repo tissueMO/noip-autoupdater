@@ -1,16 +1,16 @@
 //#####################################################################
-//   No-IP ‚©‚ç‘—‚ç‚ê‚Ä‚­‚éXV—v‹ƒ[ƒ‹‚ğ©“®ˆ—‚µ‚Ü‚·B
-//     * GAS‚ÌÀsƒgƒŠƒK[„§İ’è: ŠÔå“±Œ^x30•ª
-//     * V8ƒ‰ƒ“ƒ^ƒCƒ€•K{
+//   No-IP ã‹ã‚‰é€ã‚‰ã‚Œã¦ãã‚‹æ›´æ–°è¦æ±‚ãƒ¡ãƒ¼ãƒ«ã‚’è‡ªå‹•å‡¦ç†ã—ã¾ã™ã€‚
+//     * GASã®å®Ÿè¡Œãƒˆãƒªã‚¬ãƒ¼æ¨å¥¨è¨­å®š: æ™‚é–“ä¸»å°å‹x30åˆ†
+//     * V8ãƒ©ãƒ³ã‚¿ã‚¤ãƒ å¿…é ˆ
 //#####################################################################
 
-// ƒ[ƒ‹–{•¶‚ğ“Š‚°‚ÄÀÛ‚Ìˆ—‚ğs‚¤API‚ÌURL
+// ãƒ¡ãƒ¼ãƒ«æœ¬æ–‡ã‚’æŠ•ã’ã¦å®Ÿéš›ã®å‡¦ç†ã‚’è¡Œã†APIã®URL
 const BackendURL = ``;
 
-// ŠÇ—‘ÎÛ‚ÌƒhƒƒCƒ“–¼
+// ç®¡ç†å¯¾è±¡ã®ãƒ‰ãƒ¡ã‚¤ãƒ³å
 const TargetDomainName = "example.com";
 
-// ƒ[ƒ‹‚ÉŠÜ‚Ü‚ê‚é‹LqğŒ (ANDğŒ/³‹K•\Œ»‰Â)
+// ãƒ¡ãƒ¼ãƒ«ã«å«ã¾ã‚Œã‚‹è¨˜è¿°æ¡ä»¶ (ANDæ¡ä»¶/æ­£è¦è¡¨ç¾å¯)
 const TargetMailConditions = [
   { to: "MAILADDRESS" },
   { from: ".*@noip.com$" },
@@ -22,17 +22,17 @@ const TargetMailConditions = [
 
 
 /**
- * ƒGƒ“ƒgƒŠ[ƒ|ƒCƒ“ƒg
+ * ã‚¨ãƒ³ãƒˆãƒªãƒ¼ãƒã‚¤ãƒ³ãƒˆ
  */
 const NoIpAutoUpdate = () => {
-  // No-IP ‚ÌXV‚ğ—v‹‚·‚éƒ[ƒ‹‚ğóMƒgƒŒƒC‚©‚çŒŸõ
+  // No-IP ã®æ›´æ–°ã‚’è¦æ±‚ã™ã‚‹ãƒ¡ãƒ¼ãƒ«ã‚’å—ä¿¡ãƒˆãƒ¬ã‚¤ã‹ã‚‰æ¤œç´¢
   const mailThreadsFromNoIp = GmailApp.search("in:inbox from:(@noip.com) subject:(Expiring Soon)");
 
-  // ƒXƒŒƒbƒh’PˆÊ‚Åæ‚ê‚Ä‚­‚é
+  // ã‚¹ãƒ¬ãƒƒãƒ‰å˜ä½ã§å–ã‚Œã¦ãã‚‹
   let callAPISuccessCount = 0;
   let callAPIFailCount = 0;
   for (const thread of mailThreadsFromNoIp) {
-    // ƒƒbƒZ[ƒW‚Ì•¶–ÊŠm”F
+    // ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®æ–‡é¢ç¢ºèª
     for (const mail of thread.getMessages()) {
       const mailAttributes = {
         subject: mail.getSubject(),
@@ -41,24 +41,24 @@ const NoIpAutoUpdate = () => {
         to: mail.getTo(),
       };
       // console.log(mailAttributes);
-  
+
       let valid = true;
-  
-      // ğŒ‚Éƒ}ƒbƒ`‚·‚éƒ[ƒ‹‚©‚Ç‚¤‚©Šm”F
+
+      // æ¡ä»¶ã«ãƒãƒƒãƒã™ã‚‹ãƒ¡ãƒ¼ãƒ«ã‹ã©ã†ã‹ç¢ºèª
       for (const condition of TargetMailConditions) {
         const key = Object.keys(condition)[0];
         valid |= mailAttributes[key].match(condition[key]);
         if (!valid) {
-          console.log(`D:ğŒƒ}ƒbƒ`‚¹‚¸: [${key}] ‚ª ƒpƒ^[ƒ“ [${condition[key]}] ‚ğ–‚½‚µ‚Ä‚¢‚È‚¢`);
+          console.log(`D:æ¡ä»¶ãƒãƒƒãƒã›ãš: [${key}] ãŒ ãƒ‘ã‚¿ãƒ¼ãƒ³ [${condition[key]}] ã‚’æº€ãŸã—ã¦ã„ãªã„`);
           break;
         }
       }
       if (!valid) {
-        // ƒ}ƒbƒ`‚µ‚È‚¢ƒ[ƒ‹‚ÍƒXƒLƒbƒv
+        // ãƒãƒƒãƒã—ãªã„ãƒ¡ãƒ¼ãƒ«ã¯ã‚¹ã‚­ãƒƒãƒ—
         continue;
       }
 
-      // ‚±‚Ìƒ[ƒ‹‚ğAPI‚É“Š‚°‚Ä©“®ˆ—‚ğs‚¤
+      // ã“ã®ãƒ¡ãƒ¼ãƒ«ã‚’APIã«æŠ•ã’ã¦è‡ªå‹•å‡¦ç†ã‚’è¡Œã†
       const options = {
         method: "get",
         contentType: "application/json",
@@ -69,7 +69,7 @@ const NoIpAutoUpdate = () => {
       const response = UrlFetchApp.fetch(BackendURL, options);
 
       if (response.getResponseCode() === 200) {
-        callAPISuccessCount++;        
+        callAPISuccessCount++;
         console.info(`I:${response.getContentText("utf-8")}`);
       } else {
         callAPIFailCount++;
@@ -79,6 +79,6 @@ const NoIpAutoUpdate = () => {
       break;
     }
   }
-  
-  console.info(`I:DONE. APIƒR[ƒ‹¬Œ÷‰ñ”=${callAPISuccessCount}, APIƒR[ƒ‹¸”s‰ñ”=${callAPIFailCount}`);
+
+  console.info(`I:DONE. APIã‚³ãƒ¼ãƒ«æˆåŠŸå›æ•°=${callAPISuccessCount}, APIã‚³ãƒ¼ãƒ«å¤±æ•—å›æ•°=${callAPIFailCount}`);
 }
