@@ -29,14 +29,16 @@ def noip_auto_update() -> Response:
 
         # 渡されてきたHTMLをDOMとして認識させて解析
         dom = pq(request_json["message"])
-        target_anchors = dom("a[target='_blank']:contains('Confirm Hostname')").items()
-        print(f":target_anchors={target_anchors}")
+        target_anchors = dom("a:contains('Confirm Hostname')")
+        print(f":target_anchors({target_anchors.size()})={target_anchors.html()}")
 
-        if len(target_anchors) != 1:
+        for target_anchor in target_anchors:
+            target_url = target_anchor.attr["href"]
+            print(f":target_url={target_url}")
+
+        if target_anchors.size() != 1:
             return jsonify({ "result": "NG. Doesn't includes an 'Confirm Hostname' anchor element." })
 
-        target_url = target_anchors[0].attr["href"]
-        print(f":target_url={target_url}")
 
     finally:
         # Chromeドライバークローズ
