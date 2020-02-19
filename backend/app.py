@@ -30,7 +30,7 @@ def selenium_demo():
 
     # Chromeドライバー起動
     driver = webdriver.Chrome(
-        executable_path=os.path.join(os.getcwd(), "./chromedriver"),
+        executable_path="/app/chromedriver-81.0.4044.20",
         options=chrome_options
     )
 

@@ -5,12 +5,17 @@ FROM python:3.7
 ENV APP_HOME /app
 WORKDIR $APP_HOME
 COPY . .
+RUN chmod +x /app/chromedriver-81.0.4044.20
 
 # 依存パッケージをインストール
-RUN pip install -r requirements.txt
+RUN apt-get update && apt-get install -y \
+    gconf-gsettings-backend \
+    libnss3-dev \
+ && apt-get clean \
+ && apt-get autoremove \
+ && rm -rf /var/lib/apt/lists/*
 
-# Chromedriver のパスを通す
-ENV PATH $PATH:/app/chromedriver-81.0.4044.20
+RUN pip install -r requirements.txt
 
 # Gunicorn 起動
 CMD exec gunicorn --bind :$PORT --workers 1 --threads 4 app:app
