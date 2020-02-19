@@ -23,7 +23,6 @@ def selenium_demo():
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--disable-extensions")
     chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument("--window-size=1280x1696")
     chrome_options.add_argument("--ignore-certificate-errors")
     chrome_options.add_argument("disable-infobars")
     chrome_options.add_argument("start-maximized")
