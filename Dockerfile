@@ -25,6 +25,7 @@ RUN dpkg -i google-chrome-stable_current_amd64.deb \
  && apt-get clean \
  && apt-get autoremove \
  && rm -rf /var/lib/apt/lists/*
+RUN google-chrome --version
 
 RUN pip install -r requirements.txt
 

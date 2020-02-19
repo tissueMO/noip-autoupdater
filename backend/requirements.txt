@@ -1,6 +1,6 @@
 selenium
 fake-useragent
-chromedriver_binary
+chromedriver_binary==81.0.4044.20.0
 gunicorn
 Click==7.0
 Flask==1.1.1
