@@ -20,25 +20,26 @@ def selenium_demo():
     chrome_options = Options()
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--disable-gpu")
-    chrome_options.add_argument("--window-size=1280x1696")
+    # chrome_options.add_argument("--window-size=1280x1696")
     chrome_options.add_argument("--disable-application-cache")
     chrome_options.add_argument("--disable-infobars")
     chrome_options.add_argument("--disable-extensions")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--hide-scrollbars")
-    chrome_options.add_argument("--enable-logging")
-    chrome_options.add_argument("--log-level=0")
+    # chrome_options.add_argument("--enable-logging")
+    # chrome_options.add_argument("--log-level=0")
     chrome_options.add_argument("--single-process")
-    chrome_options.add_argument("--disable-dev-shm-usage")
+    # chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--ignore-certificate-errors")
-    chrome_options.add_argument("--remote-debugging-port=9222")
-    chrome_options.add_argument("--remote-debugging-address=0.0.0.0")
+    # chrome_options.add_argument("--remote-debugging-port=9222")
+    # chrome_options.add_argument("--remote-debugging-address=0.0.0.0")
     chrome_options.add_argument(f"user-agent={user_agent}")
-    chrome_options.binary_location = "/app/chromedriver-81.0.4044.20"
+    # chrome_options.binary_location = "/app/chromedriver-81.0.4044.20"
 
     # Chromeドライバー起動
     # print(f"binary_location exists: {os.path.exists('/app/chromedriver-81.0.4044.20')}")
-    driver = webdriver.Chrome("/app/chromedriver-81.0.4044.20", options=chrome_options)
+    # driver = webdriver.Chrome("/app/chromedriver-81.0.4044.20", options=chrome_options)
+    driver = webdriver.Chrome(options=chrome_options)
 
     # Wikipediaのランダムな記事を取得
     driver.get("https://en.wikipedia.org/wiki/Special:Random")
