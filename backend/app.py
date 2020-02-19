@@ -4,6 +4,7 @@ from flask import Flask, request, jsonify
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from fake_useragent import UserAgent
+import chromedriver_binary
 
 # Flask アプリケーション
 app = Flask(__name__)
