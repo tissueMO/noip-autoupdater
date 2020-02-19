@@ -25,14 +25,17 @@ def noip_auto_update() -> Response:
         if request_json is None or "message" not in request_json:
             return jsonify({ "result": "NG. Includes 'message' in a request." })
 
-        print(f'message: {request_json["message"]}')
+        # print(f'message: {request_json["message"]}')
 
         # 渡されてきたHTMLをDOMとして認識させて解析
         dom = pq(request_json["message"])
-        target_anchor = dom("a[target='_blank']:contains('Confirm Hostname')")
-        print(f":target_anchor={target_anchor}")
+        target_anchors = dom("a[target='_blank']:contains('Confirm Hostname')").items()
+        print(f":target_anchors={target_anchors}")
 
-        target_url = target_anchor.attr("href")
+        if len(target_anchors) != 1:
+            return jsonify({ "result": "NG. Doesn't includes an 'Confirm Hostname' anchor element." })
+
+        target_url = target_anchors[0].attr["href"]
         print(f":target_url={target_url}")
 
     finally:
