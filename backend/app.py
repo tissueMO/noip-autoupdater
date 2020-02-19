@@ -30,7 +30,7 @@ def selenium_demo():
     chrome_options.binary_location = "/app/chromedriver-81.0.4044.20"
 
     # Chromeドライバー起動
-    print(f"binary_location exists: {os.path.exists('/app/chromedriver-81.0.4044.20')}")
+    # print(f"binary_location exists: {os.path.exists('/app/chromedriver-81.0.4044.20')}")
     driver = webdriver.Chrome("/app/chromedriver-81.0.4044.20", options=chrome_options)
 
     # Wikipediaのランダムな記事を取得
