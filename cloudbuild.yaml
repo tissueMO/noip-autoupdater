@@ -2,16 +2,16 @@ steps:
 
 # Build the container image
 - name: "gcr.io/cloud-builders/docker"
-  args: ["build", "-t", "gcr.io/gcr.io/homeinfrastructures/noip-autoupdater", "."]
+  args: ["build", "-t", "gcr.io/homeinfrastructures/noip-autoupdater", "."]
 
 # Push the container image to Container Registry
 - name: "gcr.io/cloud-builders/docker"
-  args: ["push", "gcr.io/gcr.io/homeinfrastructures/noip-autoupdater"]
+  args: ["push", "gcr.io/homeinfrastructures/noip-autoupdater"]
 
 # Deploy container image to Cloud Run
 - name: "gcr.io/cloud-builders/gcloud"
   args: [
-    "beta", "run", "deploy", "[SERVICE_NAME]", "--image", "gcr.io/gcr.io/homeinfrastructures/noip-autoupdater",
+    "beta", "run", "deploy", "[SERVICE_NAME]", "--image", "gcr.io/homeinfrastructures/noip-autoupdater",
     "--region", "asia-northeast1",
     "--platform", "managed",
     "--allow-unauthenticated"
