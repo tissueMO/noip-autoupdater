@@ -11,7 +11,8 @@ RUN chmod +x /app/chromedriver-81.0.4044.20
 RUN apt-get update && apt-get install -y \
     gconf-service libasound2 libatk1.0-0 libcairo2 libcups2 \
     libfontconfig1 libgdk-pixbuf2.0-0 libgtk-3-0 libnspr4 \
-    libpango-1.0-0 libxss1 fonts-liberation libappindicator1 \
+    libpango-1.0-0 libxss1 fonts-liberation \
+    libappindicator1 libappindicator3-1 \
     libnss3 lsb-release xdg-utils \
  && apt-get clean \
  && apt-get autoremove \
@@ -20,7 +21,6 @@ RUN apt-get update && apt-get install -y \
 # Chromeをインストール
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 RUN dpkg -i google-chrome-stable_current_amd64.deb \
- && apt-get install -y libappindicator7 \
  && apt-get install -fy \
  && apt-get clean \
  && apt-get autoremove \
