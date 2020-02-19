@@ -16,16 +16,15 @@ def selenium_demo():
     user_agent = UserAgent().random
     print(user_agent)
 
+    # Chromeドライバーの起動設定
     chrome_options = Options()
     chrome_options.add_argument("--headless")
-    # chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--disable-extensions")
     chrome_options.add_argument("--window-size=1280x1696")
-    # chrome_options.add_argument("--no-sandbox")
-    # chrome_options.add_argument("--hide-scrollbars")
-    # chrome_options.add_argument("--enable-logging")
-    # chrome_options.add_argument("--log-level=0")
-    # chrome_options.add_argument("--v=99")
-    # chrome_options.add_argument("--single-process")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("disable-infobars")
+    chrome_options.add_argument("start-maximized")
     chrome_options.add_argument("--ignore-certificate-errors")
     chrome_options.add_argument(f"user-agent={user_agent}")
     chrome_options.binary_location = "/app/chromedriver-81.0.4044.20"
