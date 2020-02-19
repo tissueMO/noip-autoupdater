@@ -1,12 +1,7 @@
 # https://hub.docker.com/_/python
 FROM python:3.7
 
-# Webアプリをホストから丸ごとコピー
-ENV APP_HOME /app
-WORKDIR $APP_HOME
-COPY ./backend/* ./
-
-# 依存パッケージをインストール
+# 依存パッケージ一式をインストール
 RUN apt-get update && apt-get install -y \
     gconf-service libasound2 libatk1.0-0 libcairo2 libcups2 \
     libfontconfig1 libgdk-pixbuf2.0-0 libgtk-3-0 libnspr4 \
@@ -26,6 +21,12 @@ RUN dpkg -i google-chrome-stable_current_amd64.deb \
  && rm -rf /var/lib/apt/lists/*
 RUN google-chrome --version
 
+# Webアプリをホストから丸ごとコピー
+ENV APP_HOME /app
+WORKDIR $APP_HOME
+COPY ./backend/* ./
+
+# Webアプリの依存パッケージ一式をインストール
 RUN pip install -r requirements.txt
 
 # Gunicorn 起動
