@@ -2,6 +2,7 @@ selenium
 fake-useragent
 chromedriver_binary==80.0.3987.106
 gunicorn
+pyquery
 Click==7.0
 Flask==1.1.1
 Flask-Cors==3.0.8

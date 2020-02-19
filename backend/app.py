@@ -5,9 +5,41 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from fake_useragent import UserAgent
 import chromedriver_binary
+from pyquery import PyQuery as pq
 
 # Flask アプリケーション
 app = Flask(__name__)
+
+
+@app.route("/noip-autoupdate", methods=["POST"])
+def noip_auto_update() -> Response:
+    """No-IP の自動更新を実行します。
+
+    Returns:
+        Response -- JSONレスポンス
+    """
+    driver = create_chrome_driver()
+
+    try:
+        request_json = request.get_json()
+        if request_json is None or "message" not in request_json:
+            return jsonify({ "result": "NG. Includes 'message' in a request." })
+
+        print(f'message: {request_json["message"]}')
+
+        # 渡されてきたHTMLをDOMとして認識させて解析
+        dom = pq(request_json["message"])
+        target_anchor = dom("a[target='_blank']:contains('Confirm Hostname')")
+        print(f":target_anchor={target_anchor}")
+
+        target_url = target_anchor.attr("href")
+        print(f":target_url={target_url}")
+
+    finally:
+        # Chromeドライバークローズ
+        driver.quit()
+
+    return jsonify({ "result": "OK. Accepted." })
 
 
 @app.route("/selenium-test", methods=["GET"])
@@ -26,22 +58,6 @@ def selenium_test() -> Response:
     # Chromeドライバークローズ
     driver.quit()
     return jsonify({ "result": line })
-
-
-@app.route("/noip-autoupdate", methods=["POST"])
-def noip_auto_update() -> Response:
-    """No-IP の自動更新を実行します。
-
-    Returns:
-        Response -- JSONレスポンス
-    """
-    driver = create_chrome_driver()
-    request_json = request.get_json()
-    if request_json and "message" in request_json:
-        print(request_json["message"])
-        return jsonify({ "result": "OK. Accepted." })
-    else:
-        return jsonify({ "result": "NG. Includes 'message' in a request." })
 
 
 def create_chrome_driver(user_agent: str = None) -> webdriver.Chrome:
