@@ -39,7 +39,7 @@ def noip_auto_update() -> Response:
         if target_anchors.size() != 1:
             return jsonify({
                 "result": "NG",
-                "message": "Doesn't includes an 'Confirm Hostname' anchor element."
+                "message": "Doesn't include an 'Confirm Hostname' anchor element."
             })
 
         for target_anchor in target_anchors:
@@ -56,7 +56,10 @@ def noip_auto_update() -> Response:
         # Chromeドライバークローズ
         driver.quit()
 
-    return jsonify({ "result": "OK" }.update(additional_results))
+    # 成功: 正常終了のレスポンスを返す
+    result = { "result": "OK" }
+    result.update(additional_results)
+    return jsonify(result)
 
 
 @app.route("/selenium-test", methods=["GET"])
