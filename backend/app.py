@@ -33,7 +33,7 @@ def noip_auto_update() -> Response:
         print(f":target_anchors({target_anchors.size()})={target_anchors.html()}")
 
         for target_anchor in target_anchors:
-            target_url = target_anchor.attr["href"]
+            target_url = dom(target_anchor).attr["href"]
             print(f":target_url={target_url}")
 
         if target_anchors.size() != 1:
