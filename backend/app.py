@@ -19,32 +19,44 @@ def noip_auto_update() -> Response:
         Response -- JSONレスポンス
     """
     driver = create_chrome_driver()
+    additional_results = {}
 
     try:
         request_json = request.get_json()
         if request_json is None or "message" not in request_json:
-            return jsonify({ "result": "NG. Includes 'message' in a request." })
+            return jsonify({
+                "result": "NG",
+                "message": "Includes 'message' in a request."
+            })
 
         # print(f'message: {request_json["message"]}')
 
         # 渡されてきたHTMLをDOMとして認識させて解析
         dom = pq(request_json["message"])
         target_anchors = dom("a:contains('Confirm Hostname')")
-        print(f":target_anchors({target_anchors.size()})={target_anchors.html()}")
-
-        for target_anchor in target_anchors:
-            target_url = dom(target_anchor).attr["href"]
-            print(f":target_url={target_url}")
+        # print(f":target_anchors({target_anchors.size()})={target_anchors.html()}")
 
         if target_anchors.size() != 1:
-            return jsonify({ "result": "NG. Doesn't includes an 'Confirm Hostname' anchor element." })
+            return jsonify({
+                "result": "NG",
+                "message": "Doesn't includes an 'Confirm Hostname' anchor element."
+            })
 
+        for target_anchor in target_anchors:
+            # SeleniumでアクセスするURLを抽出
+            target_url = dom(target_anchor).attr["href"]
+            # print(f":target_url={target_url}")
+            break
+
+        # 追加情報
+        additional_results["target_anchors_length"] = target_anchors.size()
+        additional_results["target_url"] = target_url
 
     finally:
         # Chromeドライバークローズ
         driver.quit()
 
-    return jsonify({ "result": "OK. Accepted." })
+    return jsonify({ "result": "OK" }.update(additional_results))
 
 
 @app.route("/selenium-test", methods=["GET"])
