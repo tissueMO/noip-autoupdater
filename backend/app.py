@@ -33,7 +33,8 @@ def noip_auto_update() -> Response:
 
         # 渡されてきたHTMLをDOMとして認識させて解析
         dom = pq(request_json["message"])
-        target_anchors = dom("a:contains('Confirm Hostname')")
+        # target_anchors = dom("a:contains('Confirm Hostname')")
+        target_anchors = dom("a[href^='https://www.noip.com/confirm-host?']")
         # print(f":target_anchors({target_anchors.size()})={target_anchors.html()}")
 
         if target_anchors.size() != 1:
@@ -47,6 +48,10 @@ def noip_auto_update() -> Response:
             target_url = dom(target_anchor).attr["href"]
             # print(f":target_url={target_url}")
             break
+
+        # Seleniumで [Confirm Hostname] のページにアクセス
+        # driver.get(target_url)
+        # line = driver.find_element_by_link_text("No thanks, just renew my free hostname").text
 
         # 追加情報
         additional_results["target_anchors_length"] = target_anchors.size()
